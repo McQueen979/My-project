@@ -1,0 +1,160 @@
+/* 响应式壁纸样式 - 保证各种分辨率下完整显示 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Microsoft YaHei', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #1a1a1a;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5vmin; /* 使用视口单位代替固定像素 */
+    text-align: center;
+}
+
+/* 时钟样式 - 响应式字体大小 */
+.clock-container {
+    margin-bottom: 10vh;
+}
+
+#clock {
+    font-size: clamp(3rem, 10vw, 8rem); /* 动态字体大小 */
+    font-weight: 300;
+    letter-spacing: 0.5vw;
+    text-shadow: 0 0 15px rgba(0, 150, 255, 0.8);
+    color: #ffffff;
+    margin: 2vh 0;
+}
+
+.date-display {
+    font-size: clamp(1rem, 3vw, 2rem);
+    margin-top: 1vh;
+    color: #adb5bd;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* 语录容器 - 响应式尺寸 */
+.quote-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 5vh 0;
+    padding: 4vmin;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    border-left: 8px solid #4cc9f0;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+#quoteDisplay {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    line-height: 1.6;
+    margin-bottom: 2vh;
+    font-style: italic;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    padding: 0 2vw;
+}
+
+/* 倒计时容器 - 响应式设计 */
+.countdown-container {
+    margin-top: 10vh;
+    padding: 3vmin;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    border-left: 8px solid #f72585;
+    width: 80%;
+    max-width: 800px;
+}
+
+.countdown-title {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    margin-bottom: 2vh;
+    color: #f8f9fa;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+#countdown {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: bold;
+    color: #4cc9f0;
+    text-shadow: 0 0 15px rgba(76, 201, 240, 0.7);
+}
+
+/* 动画效果 */
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 响应式媒体查询 - 针对特殊屏幕比例调整 */
+@media (max-aspect-ratio: 16/9) {
+    /* 针对更"方正"的屏幕比例 */
+    .clock-container {
+        margin-bottom: 5vh;
+    }
+    .quote-container {
+        margin: 3vh 0;
+        min-height: 15vh;
+    }
+    .countdown-container {
+        margin-top: 5vh;
+    }
+}
+
+@media (max-width: 1200px) {
+    /* 中等屏幕调整 */
+    .container {
+        padding: 3vmin;
+    }
+}
+
+@media (max-height: 800px) {
+    /* 矮屏幕调整 */
+    .clock-container {
+        margin-bottom: 5vh;
+    }
+    .quote-container {
+        margin: 3vh 0;
+        min-height: 15vh;
+    }
+    .countdown-container {
+        margin-top: 5vh;
+    }
+}
+
+/* 超高屏幕特殊处理 */
+@media (min-height: 1200px) {
+    .clock-container {
+        margin-bottom: 15vh;
+    }
+    .countdown-container {
+        margin-top: 15vh;
+    }
+}

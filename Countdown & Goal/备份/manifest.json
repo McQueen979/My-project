@@ -1,0 +1,40 @@
+{
+  "description": "一个显示实时时钟、随机语录和目标倒计时的个性化桌面壁纸。",
+  "file": "index.html", // 如果您的HTML主文件是其他名字，请修改这里
+  "general": {
+    "properties": {
+      "sizex": {
+        "order": 0,
+        "text": "宽度",
+        "type": "slider",
+        "value": 1920
+      },
+      "sizey": {
+        "order": 1,
+        "text": "高度",
+        "type": "slider",
+        "value": 1080
+      },
+      "title": {
+        "order": 2,
+        "text": "语录时钟壁纸",
+        "type": "text",
+        "value": "语录时钟"
+      }
+    },
+    "supportsaudioprocessing": false
+  },
+  "preview": "preview.jpg",
+  "tags": [
+    "网页",
+    "时钟",
+    "语录",
+    "倒计时",
+    "个性化"
+  ],
+  "title": "语录时钟",
+  "type": "web",
+  "version": 2,
+  "visibility": "public", // 可以是 "public", "private", "unlisted"
+  "workshopid": 0
+}
