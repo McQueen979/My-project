@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2000年2月29日出生者实时年龄</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* 定义本地Fredoka One字体 */
+        @font-face {
+            font-family: 'Fredoka One';
+            font-style: normal;
+            font-weight: 400;
+            src: url('FredokaOne-Regular.ttf') format('truetype');
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #2b2b2b;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            color: #d4d4d4;
+            overflow: hidden;
+        }
+        
+        #age-display {
+            font-size: 4.5vw;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(212, 212, 212, 0.3);
+            margin-bottom: 0.835vh;
+            width: 80%;
+            max-width: 900px;
+            white-space: nowrap;
+        }
+        
+        .progress-container {
+            display: flex;
+            width: 80%;
+            max-width: 900px;
+            gap: 20px;
+            justify-content: space-between;
+        }
+        
+        .progress-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 20px;
+            background-color: #3c3c3c;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 5px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.1s ease;
+            position: relative;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            gap: 10px;
+            /* 使用本地Fredoka One字体，并设置回退字体 */
+            font-family: 'Fredoka One', cursive, sans-serif;
+            letter-spacing: 0.5px;
+        }
+        
+        .progress-label, .progress-percent, .progress-remaining {
+            font-weight: normal;
+            color: #e0e0e0;
+        }
+        
+        /* 为每个进度条设置Python Charm/IDEA风格的配色 */
+        #day-progress {
+            background: linear-gradient(90deg, #FFC107, #FFD54F);
+        }
+        
+        #week-progress {
+            background: linear-gradient(90deg, #4CAF50, #81C784);
+        }
+        
+        #month-progress {
+            background: linear-gradient(90deg, #F44336, #E57373);
+        }
+        
+        #year-progress {
+            background: linear-gradient(90deg, #2196F3, #64B5F6);
+        }
+    </style>
+</head>
+<body>
+    <div id="age-display">AGE 25.0000000000</div>
+    
+    <div class="progress-container">
+        <div class="progress-item">
+            <div class="progress-bar-container">
+                <div id="day-progress" class="progress-bar"></div>
+            </div>
+            <div class="progress-info">
+                <span class="progress-label">Day</span>
+                <span id="day-percent" class="progress-percent">0.00%</span>
+                <span id="day-remaining" class="progress-remaining">0</span>
+            </div>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-bar-container">
+                <div id="week-progress" class="progress-bar"></div>
+            </div>
+            <div class="progress-info">
+                <span class="progress-label">Week</span>
+                <span id="week-percent" class="progress-percent">0.00%</span>
+                <span id="week-remaining" class="progress-remaining">0</span>
+            </div>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-bar-container">
+                <div id="month-progress" class="progress-bar"></div>
+            </div>
+            <div class="progress-info">
+                <span class="progress-label">Month</span>
+                <span id="month-percent" class="progress-percent">0.00%</span>
+                <span id="month-remaining" class="progress-remaining">0</span>
+            </div>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-bar-container">
+                <div id="year-progress" class="progress-bar"></div>
+            </div>
+            <div class="progress-info">
+                <span class="progress-label">Year</span>
+                <span id="year-percent" class="progress-percent">0.00%</span>
+                <span id="year-remaining" class="progress-remaining">0</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 设置出生日期为2000年2月29日
+        const birthDate = new Date(2000, 1, 29);
+        
+        // 获取显示元素
+        const ageDisplay = document.getElementById('age-display');
+        const dayProgress = document.getElementById('day-progress');
+        const weekProgress = document.getElementById('week-progress');
+        const monthProgress = document.getElementById('month-progress');
+        const yearProgress = document.getElementById('year-progress');
+        const dayPercent = document.getElementById('day-percent');
+        const weekPercent = document.getElementById('week-percent');
+        const monthPercent = document.getElementById('month-percent');
+        const yearPercent = document.getElementById('year-percent');
+        const dayRemaining = document.getElementById('day-remaining');
+        const weekRemaining = document.getElementById('week-remaining');
+        const monthRemaining = document.getElementById('month-remaining');
+        const yearRemaining = document.getElementById('year-remaining');
+        
+        function getDayOfYear(date) {
+            const startOfYear = new Date(date.getFullYear(), 0, 1);
+            const msPerDay = 1000 * 60 * 60 * 24;
+            const diff = date - startOfYear;
+            return Math.floor(diff / msPerDay) + 1;
+        }
+        
+        function calculateRemainingDays() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+            const totalDays = isLeapYear ? 366 : 365;
+            const dayOfYear = getDayOfYear(now);
+            return totalDays - dayOfYear;
+        }
+        
+        function calculateRemainingWeeks() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const endOfYear = new Date(year, 11, 31);
+            const dayOfWeek = now.getDay();
+            let monday;
+            if (dayOfWeek === 0) {
+                monday = new Date(now);
+                monday.setDate(now.getDate() - 6);
+            } else {
+                monday = new Date(now);
+                monday.setDate(now.getDate() - (dayOfWeek - 1));
+            }
+            monday.setHours(0, 0, 0, 0);
+            const nextMonday = new Date(monday);
+            nextMonday.setDate(monday.getDate() + 7);
+            nextMonday.setHours(0, 0, 0, 0);
+            if (nextMonday > endOfYear) {
+                return 0;
+            }
+            const doyNext = getDayOfYear(nextMonday);
+            const doyEnd = getDayOfYear(endOfYear);
+            const numDays = doyEnd - doyNext + 1;
+            return Math.floor(numDays / 7);
+        }
+        
+        function calculateRemainingMonths() {
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            if (currentMonth >= 11) {
+                return 0;
+            } else {
+                return 11 - currentMonth;
+            }
+        }
+        
+        function calculateExactAge() {
+            const now = new Date();
+            const diffMs = now - birthDate;
+            const msPerYear = 1000 * 60 * 60 * 24 * 365.2425;
+            const exactAge = diffMs / msPerYear;
+            return exactAge.toFixed(10);
+        }
+        
+        function calculateDayProgress() {
+            const now = new Date();
+            const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+            const progress = (now - startOfDay) / (endOfDay - startOfDay);
+            return progress * 100;
+        }
+        
+        function calculateWeekProgress() {
+            const now = new Date();
+            const dayOfWeek = now.getDay();
+            const monday = new Date(now);
+            monday.setDate(now.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
+            monday.setHours(0, 0, 0, 0);
+            const nextMonday = new Date(monday);
+            nextMonday.setDate(monday.getDate() + 7);
+            const progress = (now - monday) / (nextMonday - monday);
+            return progress * 100;
+        }
+        
+        function calculateMonthProgress() {
+            const now = new Date();
+            const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+            const progress = (now - startOfMonth) / (endOfMonth - startOfMonth);
+            return progress * 100;
+        }
+        
+        function calculateYearProgress() {
+            const now = new Date();
+            const startOfYear = new Date(now.getFullYear(), 0, 1);
+            const endOfYear = new Date(now.getFullYear() + 1, 0, 1);
+            const progress = (now - startOfYear) / (endOfYear - startOfYear);
+            return progress * 100;
+        }
+        
+        function updateDisplay() {
+            ageDisplay.textContent = `AGE ${calculateExactAge()}`;
+            const dayPercentValue = calculateDayProgress();
+            const weekPercentValue = calculateWeekProgress();
+            const monthPercentValue = calculateMonthProgress();
+            const yearPercentValue = calculateYearProgress();
+            
+            dayProgress.style.width = `${dayPercentValue}%`;
+            weekProgress.style.width = `${weekPercentValue}%`;
+            monthProgress.style.width = `${monthPercentValue}%`;
+            yearProgress.style.width = `${yearPercentValue}%`;
+            
+            dayPercent.textContent = `${dayPercentValue.toFixed(2)}%`;
+            weekPercent.textContent = `${weekPercentValue.toFixed(2)}%`;
+            monthPercent.textContent = `${monthPercentValue.toFixed(2)}%`;
+            yearPercent.textContent = `${yearPercentValue.toFixed(2)}%`;
+            
+            dayRemaining.textContent = calculateRemainingDays();
+            weekRemaining.textContent = calculateRemainingWeeks();
+            monthRemaining.textContent = calculateRemainingMonths();
+            yearRemaining.textContent = 0;
+        }
+        
+        updateDisplay();
+        setInterval(updateDisplay, 100);
+    </script>
+</body>
+</html>

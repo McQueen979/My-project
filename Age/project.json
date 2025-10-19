@@ -1,0 +1,30 @@
+{
+  "title": "实时年龄动态壁纸",
+  "description": "显示2000年2月29日出生者的实时年龄，带有时间进度条",
+  "file": "age_wallpaper.html",
+  "type": "web",
+  "general": {
+    "properties": {
+      "scheme": {
+        "name": "配色方案",
+        "type": "combo",
+        "value": "dark",
+        "options": {
+          "dark": "深色主题",
+          "light": "浅色主题"
+        }
+      },
+      "updateInterval": {
+        "name": "更新频率",
+        "type": "slider",
+        "value": 100,
+        "min": 50,
+        "max": 1000,
+        "step": 50,
+        "suffix": "ms"
+      }
+    }
+  },
+  "preview": "preview.jpg",
+  "tags": ["interactive", "web", "minimalist", "informative"]
+}
